@@ -190,3 +190,125 @@ Organization Tenant
 - Understanding workspace concepts is crucial before creating fabric items like lakehouses, notebooks, or reports
 
 
+
+
+# Microsoft Fabric Workspace Roles and Access Management 
+
+## **Why Workspace Roles Are Needed**
+
+Workspace roles are essential for controlling user permissions and managing what actions different users can perform within a Microsoft Fabric workspace. Since workspaces can contain various fabric items like:
+- Data pipelines
+- Notebooks  
+- Multiple experiences and capabilities
+
+Roles help administrators control **what users can do** and **what kind of activities** they can perform in the workspace.
+
+## **Four Available Workspace Roles**
+
+### **Visual Role Hierarchy:**
+```
+Admin Role (Highest Permissions)
+├── Full workspace control
+├── Update and delete workspace
+└── All capabilities available
+
+Member Role
+├── Most capabilities
+└── Cannot update/delete workspace
+
+Contributor Role  
+├── Limited capabilities
+└── Can contribute content
+
+Viewer Role (Lowest Permissions)
+├── View-only access
+├── Cannot edit anything
+└── Read-only permissions
+```
+
+## **Role Capabilities Matrix**
+
+**Example Capabilities:**
+- **Update and delete workspace**: Only **Admin** can perform
+- **View and read content of KQL database, KQL query sets, and real-time dashboards**: **All roles** (Admin, Member, Contributor, Viewer) can perform
+
+**Documentation Reference:**
+Microsoft provides detailed documentation with a comprehensive table explaining:
+- Different capabilities available in Fabric
+- Which roles can perform which capabilities
+- Specific permissions for each role type
+
+![image](https://github.com/user-attachments/assets/171c4c18-261c-4686-aea4-16e6d558cca3)
+
+
+## **Step-by-Step Access Management Process**
+
+### **Accessing Workspace Management:**
+1. Navigate to `app.fabric.microsoft.com`
+2. Go to **Workspaces menu**
+3. Click on your desired workspace (e.g., "Mahir Demo Workspace")
+4. Workspace appears in **favorites navigation menu** once opened
+
+### **Current Workspace Status:**
+- Workspace contains fabric items (e.g., "Pipeline One")
+- Initially, only the workspace creator has access with **Admin role**
+
+### **Granting User Access:**
+
+**Visual Process Flow:**
+```
+Workspace → Manage Access → Add People/Groups → Select Role → Add User
+```
+
+**Detailed Steps:**
+1. Click **"Manage Access"** button within the workspace
+2. Access panel opens showing current users and their roles
+3. Click **"Add People or Groups"** button
+4. **Enter user details:**
+   - Search by email ID or name
+   - Example: "Pradip Chatla" 
+5. **Select role** from dropdown:
+   - Admin
+   - Member  
+   - Contributor
+   - Viewer
+6. Click **"Add"** button to grant access
+
+### **Before and After Access Management:**
+
+**Before Adding User:**
+```
+Workspace Access:
+└── Current User (Admin role only)
+```
+
+**After Adding User:**
+```
+Workspace Access:
+├── Current User (Admin role)
+└── Pradip Chatla (Member role)
+```
+
+## **Verification Process**
+
+After adding a user:
+1. Close the add user window
+2. Click **"Manage Access"** again
+3. Verify that both users are listed:
+   - Original creator with Admin role
+   - Newly added user with assigned role (Member in the example)
+
+## **Key Benefits of Role-Based Access**
+
+- **Security Control**: Limit user actions based on their responsibilities
+- **Collaboration**: Enable team members to access workspace with appropriate permissions
+- **Flexibility**: Different roles for different team members based on their needs
+- **Workspace Protection**: Prevent unauthorized changes to critical workspace settings
+
+## **Important Notes**
+
+- Users can access the workspace immediately after being granted access
+- Role permissions determine what capabilities users can perform
+- Workspace creator automatically gets Admin role
+- Multiple users can be added with different roles as needed
+- Role assignments can be modified later through the same manage access interface
