@@ -114,4 +114,79 @@ The relationship between these terms follows this hierarchy:
 4. **Item** (Individual resource level)
 5. **Capacity** (Underlying compute power for all operations)
 
-Understanding these terminologies is crucial as they are used frequently throughout Microsoft Fabric documentation and training materials.
+
+
+
+# Microsoft Fabric Workspace Creation 
+
+This video demonstrates the practical process of creating workspaces in Microsoft Fabric, building upon the theoretical concepts covered in previous videos about terminologies.
+
+## **What is a Workspace?**
+
+A workspace functions as a **folder-like container** within Microsoft Fabric where teams can collaborate on projects. Within an organization's Fabric tenant, multiple workspaces can be created for different projects:
+
+- **Workspace 1**: May contain lakehouses and Power BI reports
+- **Workspace 2**: May contain data warehouses  
+- **Workspace 3**: May contain notebooks and other items
+
+Each workspace serves as a collaborative space where team members can create and manage fabric items (notebooks, lakehouses, reports, data warehouses, etc.) according to their specific project requirements[1].
+
+## **Step-by-Step Workspace Creation Process**
+
+**Initial Setup:**
+1. Navigate to `app.fabric.com` in your browser
+2. Log in with your Fabric trial account credentials
+3. Access the Microsoft Fabric homepage
+
+**Creating the Workspace:**
+1. Click the **Microsoft Fabric icon** from the homepage
+2. Select an **experience** (e.g., Data Engineering Experience)
+3. Navigate to the **Workspaces menu** (you'll see "My Workspace" by default)
+4. Click the **"New Workspace"** button
+
+## **Workspace Configuration Options**
+
+**Required Fields:**
+- **Name**: Mandatory field for workspace identification
+- **Description**: Optional but recommended for clarity
+
+**Optional Configurations:**
+- **Domain Association**: Links workspace to organizational domains for content discovery (covered in future classes)
+- **Workspace Image**: Custom icon/logo for visual identification
+- **Contact List**: Users who receive email alerts for workspace changes
+- **License Mode**: Automatically set based on your Fabric license type
+
+**Advanced Settings:**
+- Contact lists enable automatic email notifications when workspace changes occur
+- The workspace creator is automatically added as a contact by default
+
+## **Workspace Management Features**
+
+**Pinning Workspaces:**
+- Organizations may have hundreds of workspaces across different projects
+- **Pin frequently used workspaces** to appear at the top of your workspace list
+- Access pinning via the **pin symbol** that appears when hovering over workspace names
+- Pinned workspaces appear in a separate "Pinned Workspaces" section
+- Unpinned workspaces appear in the "All" category below
+
+**Visual Workspace Hierarchy:**
+```
+Organization Tenant
+├── Pinned Workspaces
+│   ├── My Sample Workspace (pinned)
+│   └── Other Pinned Workspaces
+└── All Workspaces
+    ├── Unpinned Workspace 1
+    ├── Unpinned Workspace 2
+    └── Additional Workspaces
+```
+
+## **Key Takeaways**
+
+- Workspaces are essential organizational containers for Fabric projects
+- Each workspace can contain multiple types of fabric items across different experiences
+- Proper workspace management (naming, descriptions, pinning) improves team collaboration and project organization
+- The workspace creation process is straightforward but offers flexibility for customization
+- Understanding workspace concepts is crucial before creating fabric items like lakehouses, notebooks, or reports
+
+
