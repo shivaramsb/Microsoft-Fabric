@@ -806,3 +806,153 @@ Fabric Items (Notebooks/Pipelines)
 - **Plan for authentication** renewals
 
 **Key Takeaway**: Shortcuts enable Microsoft Fabric to act as a **unified data platform** that can seamlessly integrate with existing data infrastructure without requiring data migration, providing flexibility and cost efficiency for enterprise analytics scenarios.
+
+
+
+
+
+# Using Python to Manage Microsoft OneLake
+
+This documentation explains how to use the Azure Storage Python SDK to programmatically manage files and directories in Microsoft Fabric's OneLake storage system.
+
+## **Prerequisites**
+
+Before starting your Python project, ensure you have:
+- **Fabric workspace** with Contributor permissions
+- **Lakehouse** in the workspace (optionally with preloaded data)
+- **Python environment** set up for development
+
+## **Project Setup**
+
+### **Required Package Installation:**
+```bash
+pip install azure-storage-file-datalake azure-identity
+```
+
+## **Authentication and Authorization**
+
+### **Service Client Creation:**
+### **Authentication Methods:**
+- **DefaultAzureCredential**: Automatically detects and uses available credentials
+- **Azure CLI**: Use `az login` command
+- **Azure PowerShell**: Use `Connect-AzAccount` cmdlet
+- **Service Principal**: For production scenarios[1]
+
+## **OneLake URI Structure**
+
+### **Standard URI Format:**
+```
+https://onelake.dfs.fabric.microsoft.com//.//
+```
+
+### **Key Components:**
+- **Account Name**: Always `"onelake"`
+- **Workspace**: Acts as container/filesystem
+- **Item Type**: `.lakehouse`, `.datawarehouse`, etc.
+- **Path Structure**: 
+  - Tables: `/.Lakehouse/Tables/`
+  - Files: `/.Lakehouse/Files/`
+
+## **Complete Sample Implementation**
+
+### **Full Working Example:**
+```python
+#Install the correct packages first in the same folder as this file. 
+#pip install azure-storage-file-datalake azure-identity
+
+from azure.storage.filedatalake import (
+    DataLakeServiceClient,
+    DataLakeDirectoryClient,
+    FileSystemClient
+)
+from azure.identity import DefaultAzureCredential
+
+# Set your account, workspace, and item path here
+ACCOUNT_NAME = "onelake"
+WORKSPACE_NAME = ""
+DATA_PATH = ".Lakehouse/Files/"
+
+def main():
+    #Create a service client using the default Azure credential
+    account_url = f"https://{ACCOUNT_NAME}.dfs.fabric.microsoft.com"
+    token_credential = DefaultAzureCredential()
+    service_client = DataLakeServiceClient(account_url, credential=token_credential)
+
+    #Create a file system client for the workspace
+    file_system_client = service_client.get_file_system_client(WORKSPACE_NAME)
+    
+    #List a directory within the filesystem
+    paths = file_system_client.get_paths(path=DATA_PATH)
+
+    for path in paths:
+        print(path.name + '\n')
+
+if __name__ == "__main__":
+    main()
+```
+
+### **Execution:**
+```bash
+python listOneLakeDirectory.py
+```
+
+## **Visual Architecture Flow**
+
+```
+Python Application
+    ↓ (Azure SDK)
+DefaultAzureCredential Authentication
+    ↓ (Token)
+DataLakeServiceClient
+    ↓ (Connection)
+OneLake (onelake.dfs.fabric.microsoft.com)
+    ↓ (Workspace Access)
+FileSystemClient
+    ↓ (Operations)
+Lakehouse Files/Tables
+```
+
+## **Key Benefits and Use Cases**
+
+### **Automation Scenarios:**
+- **Batch File Processing**: Upload/download files programmatically[2]
+- **Data Pipeline Integration**: Connect external systems to OneLake
+- **Monitoring and Management**: List, create, delete files and directories
+- **Cross-Platform Access**: Manage OneLake from any Python environment
+
+### **Production Considerations:**
+- **Service Principal Authentication**: For automated/production scenarios[1]
+- **Error Handling**: Implement proper exception handling
+- **Permissions**: Ensure appropriate workspace roles and access
+- **Performance**: Consider batch operations for large datasets
+
+## **Compatibility and Integration**
+
+### **SDK Compatibility:**
+- **Same as ADLS Gen2**: OneLake uses identical APIs[3][4]
+- **Multi-Protocol Support**: Works with existing Azure Storage tools
+- **Cross-Platform**: Compatible with Windows, Linux, macOS
+
+### **Integration with Other Tools:**
+- **Pandas**: Direct data reading from OneLake paths
+- **Spark**: Access OneLake data in distributed processing
+- **Delta Lake**: Work with Delta format tables
+- **Power BI**: Programmatic data preparation for reporting
+
+## **Important Notes**
+
+### **Configuration Requirements:**
+- Replace `` with actual workspace name
+- Replace `` with actual lakehouse name
+- Replace `` with specific directory path
+- Ensure proper authentication setup before running scripts
+
+### **Best Practices:**
+- **Use GUIDs** for stable references when workspace/item names change[4]
+- **Handle authentication** properly for production environments
+- **Implement error handling** for network and permission issues
+- **Test with small datasets** before scaling operations
+
+**Key Takeaway**: The Azure Storage Python SDK provides seamless integration with Microsoft Fabric OneLake, enabling developers to programmatically manage data using familiar ADLS Gen2 APIs while leveraging Fabric's unified analytics platform.
+
+
