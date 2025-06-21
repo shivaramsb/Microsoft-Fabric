@@ -954,5 +954,5 @@ Lakehouse Files/Tables
 - **Test with small datasets** before scaling operations
 
 **Key Takeaway**: The Azure Storage Python SDK provides seamless integration with Microsoft Fabric OneLake, enabling developers to programmatically manage data using familiar ADLS Gen2 APIs while leveraging Fabric's unified analytics platform.
-
+    
 
